@@ -38,23 +38,6 @@ exports.getBook = async (req, res) => {
   res.json(book);
 };
 
-// // borrow book
-// exports.borrowBook = async (req, res) => {
-//   const book = await Book.findById(req.params.id);
-
-//   if (book.status === "OUT") {
-//     return res.json({ message: "Already borrowed" });
-//   }
-
-//   book.status = "OUT";
-//   book.borrowedBy = req.body.studentId;
-//   book.issuedBy = req.body.attendantId;
-//   book.returnDate = req.body.returnDate;
-
-//   await book.save();
-
-//   res.json(book);
-// };
 
 // borrow book mr kachi (better version; update method)
 exports.borrowBook = async (req, res) => {
@@ -117,5 +100,41 @@ exports.returnBook = async (req, res) => {
 
   res.json(book);
 };
+
+// get book by title
+exports.getBookByTitle = async (req, res) => {
+  const book = await Book.find({ title: req.params.title });
+  res.json(book);
+}
+
+// get book by author
+exports.getBookByAuthor = async (req, res) => {
+  const book = await Book.find({ authors: req.params.author });
+  res.json(book);
+}
+
+// get book by isbn
+exports.getBookByISBN = async (req, res) => {
+  const book = await Book.find({ isbn: req.params.isbn });
+  res.json(book);
+}
+
+// get book by status
+exports.getBookByStatus = async (req, res) => {
+  const book = await Book.find({ status: req.params.status });
+  res.json(book);
+}
+
+// delete book
+exports.deleteBook = async (req, res) => {
+  const book = await Book.findByIdAndDelete(req.params.id);
+  res.json(book);
+}
+
+// delete all books
+exports.deleteAllBooks = async (req, res) => {
+  const books = await Book.deleteMany();
+  res.json(books);
+}
   
   

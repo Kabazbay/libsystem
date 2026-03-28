@@ -5,10 +5,12 @@ const mongoose = require("mongoose");
 
 // book schema
 const bookSchema = new mongoose.Schema({
-    title: {type: String, required: true},
-    isbn: {type: String, unique: true, required: true},
+    title: { type: String, required: true },
+    isbn: { type: String, unique: true, required: true },
     authors: [{
         type: mongoose.Schema.Types.ObjectId,
+        name: "Author",
+        required: true,
         ref: "Author"
     }],
     status: {
@@ -29,10 +31,9 @@ const bookSchema = new mongoose.Schema({
     returnDate: {
         type: Date,
         default: null
-    } 
+    }
 }, { timestamps: true });
 
 
 // export model
 module.exports = mongoose.model("Book", bookSchema);
-    
